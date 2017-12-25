@@ -1,0 +1,18 @@
+{
+  "name": "chatbotify",
+  "version": "0.0.0",
+  "description": "Transform a dialogue transcript into a chatbot",
+  "main": "index.js",
+  "bin": "bin/chatbotify",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Julian Bilcke <julian.bilcke@datagica.com>",
+  "license": "ISC",
+  "dependencies": {
+    "talisman": "^0.20.0"
+  },
+  "devDependencies": {
+    "jest": "^22.0.4"
+  }
+}
