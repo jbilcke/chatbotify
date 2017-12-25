@@ -1,6 +1,6 @@
 # Chatbotify
 
-*Convert a dialogue into a chatbot using a*
+*Convert a dialogue document into an interactive chatbot*
 
 This project is a weekend project to test an idea: how easy would it be
 to convert chat history of a living or dead person into a chatbot?
@@ -16,14 +16,14 @@ Then code your application using node, or use the command line interface
 
 ### Command line
 
-   $ chatbotify examples/romeo-juliet.txt Romeo
-   Romeo: oh
-   Juliet: my dear?
+    $ chatbotify examples/romeo-juliet.txt Romeo
+    Romeo: oh
+    Juliet: my dear?
 
 ### Code
 
 ```javascript
-const { historify, chatbotify } = require('./index')
+const { historify, chatbotify } = require('chatbotify')
 const dialogue = `john: what's up?\njane: wasup'\njohn: so?\njane: what?\njohn: so?\njane: lol`
 const bot = chatbotify(historify(dialogue))
 const john = bot('john')
