@@ -34,6 +34,10 @@ console.log(john("so?")) // { "jane": "lol" }
 ## Known bugs
 
 - if we type "oh" as romeo, the response is from romeo too..
+
+## Wishlist
+
+- oh! that would be nice to reproduce the voice of the living / deceased with this: https://github.com/andabi/deep-voice-conversion
 - we should be able to split the conversation into small parts
 - maybe the bot should speak alone after some silence?
 - use the history of the conversation for better matching the "mood"
