@@ -10,6 +10,7 @@
   "author": "Julian Bilcke <julian.bilcke@datagica.com>",
   "license": "ISC",
   "dependencies": {
+    "say": "^0.14.0",
     "talisman": "^0.20.0"
   },
   "devDependencies": {

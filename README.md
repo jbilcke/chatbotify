@@ -14,11 +14,20 @@ Then code your application using node, or use the command line interface
 
 ## Example
 
-### Command line
+### Basic command line
 
     $ chatbotify examples/romeo-juliet.txt Romeo
     Romeo: oh
     Juliet: my dear?
+
+### Basic command line with speech synthesis
+
+    $ chatbotify examples/romeo-juliet.txt Juliet --speak
+    Juliet: hey dear
+
+For Linux you will need to install the "Festival" package, something like that:
+
+    $ sudo apt-get install festival festvox-kallpc16k
 
 ### Code
 
@@ -31,12 +40,9 @@ console.log(john("so?")) // { "jane": "what?" }
 console.log(john("so?")) // { "jane": "lol" }
 ```
 
-## Known bugs
-
-- if we type "oh" as romeo, the response is from romeo too..
-
 ## Wishlist
 
+- compute similarity word per word, to better resist to for missing words
 - oh! that would be nice to reproduce the voice of the living / deceased with this: https://github.com/andabi/deep-voice-conversion
 - we should be able to split the conversation into small parts
 - maybe the bot should speak alone after some silence?

@@ -1,9 +1,13 @@
+#!/usr/bin/env node
 const fs = require('fs')
 const readline = require('readline')
+const say = require('say')
 const { historify, chatbotify } = require('../index')
 
 const file = process.argv[2]
 const eventKey = process.argv[3]
+const voice = process.argv[4] 
+const delay = 0
 
 const bot = chatbotify(historify(fs.readFileSync(file, "utf-8")))(eventKey)
 
@@ -15,9 +19,20 @@ const rl = readline.createInterface({
 const chat = () =>
   rl.question(`${eventKey}: `, text => {
     const reply = bot(text)
-    const response = Object.entries(reply).map(_ => _.join(': ')).join(', ')
-    console.log(response)
-    if (text == 'stop') { return rl.close() }
-    chat()
+    setTimeout(function() {
+      if (voice) {
+        const key = Object.keys(reply)[0]
+        const value = reply[key]
+        say.stop()
+        say.speak(value, voice, 1.2)
+      }
+      const response = Object.entries(reply).map(_ => _.join(': ')).join(', ')
+      console.log(response)
+      if (text == 'stop') {
+        say.stop()
+        return rl.close()
+      }
+      chat()
+    }, delay)
   })
 chat()
