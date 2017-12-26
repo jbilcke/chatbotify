@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "say": "^0.14.0",
-    "talisman": "^0.20.0"
+    "sentence-similarity": "^1.0.7"
   },
   "devDependencies": {
     "jest": "^22.0.4"

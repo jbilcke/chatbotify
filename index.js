@@ -1,18 +1,24 @@
 'use strict'
 
-const damerauLevenshtein = require('talisman/metrics/distance/damerau-levenshtein')
+const sentenceSimilarity = require('sentence-similarity')
+const similarity = sentenceSimilarity.sentenceSimilarity
+const similarityScore = sentenceSimilarity.similarityScore
 
 const MAX_NUMBER = Number.MAX_SAFE_INTEGER
 
 const getKeys = (obj) => Object.keys(obj).filter(_ => !_.startsWith('_')).sort()
 
+const mean = numbers => {
+  let total = 0
+  for (let i = 0; i < numbers.length; i += 1) {
+    total += numbers[i]
+  }
+  return total / numbers.length
+}
+
 const findMostSimilar = (haystack, measure) =>
   haystack.map(item => ({ item: item, distance: measure(item) }))
-  .sort((a, b) => {
-    const distance = a.distance - b.distance
-    if (distance !== 0) { return distance }
-    return 0
-  })
+  .sort((a, b) => (b.distance - a.distance))
 
 const historify = text => {
   let current = ''
@@ -36,16 +42,21 @@ const guess = ({ chain, history, block }) => {
 
   const blockKeys = getKeys(block)
 
+
+  const winkOpts = { f: similarityScore.winklerMetaphone, options : {threshold: 0} }
+
   const match = findMostSimilar(chain, candidate =>
     // count the difference between keys
     // when keys are not matching we consider it is perfect match
     blockKeys.reduce((acc, k) => {
-      const distance = candidate[k]
-        ? Math.abs(damerauLevenshtein(block[k], candidate[k]))
-        : MAX_NUMBER
-      return acc + distance
-    }, 0)
-  )[0] // note: we should handle duplicate "same questions" by looking at the past
+      if (!candidate[k]) { return acc * 0 }
+      const blockArr = `${block[k]}`.split(' ')
+      const candidateArr = `${candidate[k]}`.split(' ')
+      // note: a good match is a mean superior to 0.8
+      return acc * mean(similarity(blockArr, candidateArr, winkOpts).matchScore)
+    }, 1)
+  )[0]
+  // note: we should handle duplicate "same questions" by looking at the past
   // to solve this, we can for instance give a score to each one based on the
   // similarity of previous events
 
