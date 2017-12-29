@@ -13,6 +13,7 @@ test('historify', () => {
   ])
 })
 
+
 test('chatbotify: using plain events', () => {
 
   const bot = chatbotify(historify(dialogue))
@@ -22,7 +23,6 @@ test('chatbotify: using plain events', () => {
   expect(bot({ john: "so?" })).toEqual({ jane: "lol"})
   expect(bot({ john: "so?" })).toEqual({ jane: "what?"})
 })
-
 
 test('chatbotify: using a partial function', () => {
 
